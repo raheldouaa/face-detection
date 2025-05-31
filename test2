@@ -1,0 +1,33 @@
+import pandas as pd
+from sqlalchemy import create_engine
+
+# Database connection details
+db_config = {
+    'host': 'localhost',
+    'user': 'your_username',
+    'password': 'your_password',
+    'database': 'your_database'
+}
+
+# CSV file path
+csv_file = 'attendance.csv'
+
+# MySQL table name
+table_name = 'attendance_records'
+
+# Create database connection
+connection_string = f"mysql+pymysql://{db_config['user']}:{db_config['password']}@{db_config['host']}/{db_config['database']}"
+engine = create_engine(connection_string)
+
+# Read CSV file
+df = pd.read_csv(csv_file)
+
+# Write to MySQL
+df.to_sql(
+    name=table_name,
+    con=engine,
+    if_exists='append',  # Use 'replace' if you want to overwrite existing data
+    index=False
+)
+
+print(f"Successfully transferred {len(df)} records to MySQL database.")
