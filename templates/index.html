@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition Attendance</title>
+    <script>
+        function startVideo() {
+            // Send a request to the backend to start the video feed
+            fetch('/start_video')
+                .then(response => {
+                    if (response.ok) {
+                        // If the response is okay, update the image source to start the video feed
+                        document.getElementById('videoFeed').src = '/video_feed';
+                    } else {
+                        alert('Failed to start video feed');
+                    }
+                });
+        }
+    </script>
+</head>
+<body>
+    <h1>Face Recognition Attendance System</h1>
+    <button onclick="startVideo()">Start</button>
+    <div>
+        <img id="videoFeed" src="" style="width: 100%; height: auto;" alt="Video Feed">
+    </div>
+    <div>
+        <h2>Notes:</h2>
+        <p>Here you can add any notes or alerts</p>
+    </div>
+</body>
+</html>
