@@ -40,6 +40,10 @@ def markAttendance(name):
 
 # Video capture generator
 def generate_frames():
+
+    global video_running
+    video_running = True  # Set the flag to indicate the video is running
+    
     cap = cv2.VideoCapture(0)
     while True:
         success, img = cap.read()
@@ -73,9 +77,25 @@ def generate_frames():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
+# route serves your main HTML page
+# Important to load the UI 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+# To response to the frontend Button click event
+@app.route('/start_video')
+def start_video():
+    return "Video feed started", 200
+
+# Variable to control the video feed
+video_running = False
+
+@app.route('/stop_video')
+def stop_video():
+    global video_running # May be don't need
+    video_running = False  # Set the flag to stop the video feed
+    return "Video feed stopped", 200
 
 @app.route('/video_feed')
 def video_feed():
