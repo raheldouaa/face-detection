@@ -7,7 +7,7 @@
     <script>
         function startVideo() { // Defines JS function # This fct will be excecuted when the start button is clicked
             // Send a request to the backend to start the video feed
-            fetch('/start_video') // Hadi li9alikom 3liha fetch API # My stupid ass though that is gonna be complicated
+            fetch('/start_video') // fetch API
                 .then(response => { // Check
                     if (response.ok) {
                         // If the response is okay, update the image source to start the video feed
